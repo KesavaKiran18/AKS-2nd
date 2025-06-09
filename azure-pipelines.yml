@@ -1,0 +1,9 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - script: echo "✅ AKS CI/CD pipeline initialized successfully"
+    displayName: 'Run a basic script'
