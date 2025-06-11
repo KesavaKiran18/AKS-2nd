@@ -1,9 +1,15 @@
 trigger:
-  - master
+- master
 
 pool:
-  vmImage: Default
+  name: Default  # Must match exactly with the pool name where your agent is registered
 
 steps:
-  - script: echo "✅ AKS CI/CD pipeline initialized successfully"
-    displayName: 'Run a basic script'
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: |
+    pip install -r requirements.txt
+    python app.py
+  displayName: 'Install dependencies & run Flask app'
