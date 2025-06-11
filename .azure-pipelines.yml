@@ -1,0 +1,18 @@
+trigger:
+- master
+
+pool:
+  name: Default  # Use your self-hosted agent pool name
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.12'
+    addToPath: true
+
+- script: |
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    python app.py
+  displayName: 'Run Flask App using virtual environment'
