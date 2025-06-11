@@ -2,14 +2,13 @@ trigger:
 - master
 
 pool:
-  name: Default  # Must match exactly with the pool name where your agent is registered
+  name: Default  # Make sure this matches your self-hosted agent pool name
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.x'
-
 - script: |
-    pip install -r requirements.txt
-    python app.py
-  displayName: 'Install dependencies & run Flask app'
+    sudo apt update
+    sudo apt install -y python3 python3-pip
+    python3 --version
+    pip3 install -r requirements.txt
+    python3 app.py
+  displayName: 'Install Python, dependencies and run app'
