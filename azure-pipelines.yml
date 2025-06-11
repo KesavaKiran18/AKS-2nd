@@ -2,13 +2,22 @@ trigger:
 - master
 
 pool:
-  name: Default  # Make sure this matches your self-hosted agent pool name
+  name: Default  # Change if your self-hosted agent pool is named differently
 
 steps:
 - script: |
     sudo apt update
     sudo apt install -y python3 python3-pip
     python3 --version
+    pip3 --version
+
+    # Optional: fix for PEP 668
+    python3 -m ensurepip --upgrade
+    python3 -m pip install --upgrade pip setuptools
+
+    # Install required packages
     pip3 install -r requirements.txt
+
+    # Run your app (this will still fail if Flask app tries to run without webserver context)
     python3 app.py
-  displayName: 'Install Python, dependencies and run app'
+  displayName: 'Install Python and Run Flask App'
