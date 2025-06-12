@@ -10,3 +10,20 @@ steps:
     python app.py &
     sleep 10
   displayName: 'Run Flask App'
+  name: Default  # This uses your self-hosted agent pool
+
+variables:
+  imageName: flaskaks
+
+steps:
+- task: Docker@2
+  displayName: Build and Push Image to ACR
+  inputs:
+    containerRegistry: acr-connection
+    repository: $(imageName)
+    command: buildAndPush
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
+
+>>>>>>> 349b945 (Add pipeline to build and push Docker image to ACR)
